@@ -71,22 +71,6 @@ CSS3 Capabilities are determined via [Modernizr](http://modernizr.com/).
 * IP Address
 * Flash Version
 
-## Todos
-* Implement Browser Detection.
-* Automate browscap.ini updating. 
-* Alerts for out-of-date items.
-* Expand HTML5/CSS3 items to show specifics on tested capabilities.
-* More specific responses for Linux distros.
-* Make browser size update in real time. 
-* Pure javascript alternative to php-browscap.
-* Change `item.readable` to be named more semantically. 
-
-### Icons Needed
-* Chrome OS
-* Chrome Browser
-* Firefox OS
-* Blackerry / RIM OS
-* Flash (currently using YouTube play button)
 
 ## Notes
 
