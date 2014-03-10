@@ -97,7 +97,7 @@ var app = {
 
     app.browser = function() {
         var oBrowser = window.BS_browscap,
-            oResponse = this.buildBasic('Browser', 'bs_browser', oBrowser.browser || 'Unkown Browser', 'desktop');
+            oResponse = this.buildBasic('Browser', 'bs_browser', oBrowser.browser || 'Unknown Browser', 'desktop');
 
         // IE Rewrite
         if(oBrowser.browser == 'IE') oResponse.readable = 'Internet Explorer';
