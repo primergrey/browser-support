@@ -20,10 +20,9 @@ Currently, operating systems are determined using PHP's `get_browser()` output. 
 
 
 ### Supported Browsers
-* _Chrome (not implemented)_
-* _Chrome Mobile (not implemented)_
-* _Firefox (not implemented)_
-* _Firefox for Mobile (not implemented)_
+* Chrome
+* Firefox
+* _Mercury (not implemented)_
 * _SeaMonkey? (not implemented)_
 * _Safari (not implemented)_
 * _Safari Mobile (not implemented)_

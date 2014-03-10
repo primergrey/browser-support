@@ -102,19 +102,20 @@ var app = {
         // Chrome
         if(oBrowser.browser == 'Chrome') {
             oResponse.readable = 'Google Chrome';
-            oResponse.icon = 'desktop';
+        }
+
+        // Safari
+        if(oBrowser.browser == 'Safari') {
+            oResponse.readable = 'Safari';
+        }
+
+        // Firefox
+        if(oBrowser.browser == 'Firefox') {
+            oResponse.readable = 'Firefox';
         }
 
         if(oBrowser.browser_version)
             oResponse.readable += ' ' + oBrowser.browser_version;
-
-        // // iOS
-        // } else if(oBrowser.os == 'iOS') {
-        //     oResponse.readable = 'iOS ';
-        //     oResponse.icon = 'apple';
-
-        // // Windows + Windows Mobile
-        // }
 
         return oResponse;
     }
