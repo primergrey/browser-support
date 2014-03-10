@@ -22,21 +22,20 @@ Currently, operating systems are determined using PHP's `get_browser()` output. 
 ### Supported Browsers
 * Chrome
 * Firefox
-* _Mercury (not implemented)_
-* _SeaMonkey? (not implemented)_
-* _Safari (not implemented)_
-* _Safari Mobile (not implemented)_
-* _Internet Explorer (not implemented)_
-* _Internet Explorer Mobile (not implemented)_
-* _Opera (not implemented)_
-* _Opera Mobile (not implemented)_
-* _Chromium (not implemented)_
-* _Konquerer (not implemented)_
-* _Kindle (not implemented)_
-* _Blackberry Browser (not implemented)_
-* _Iris (not implemented)_
-* _Dolphin (not implemented)_
-* _Web OS (not implemented)_
+* Safari
+* Internet Explorer
+* Internet Explorer Mobile _(not tested)_
+* Opera _(not tested)_
+* Opera Mobile _(not tested)_
+* Opera Mini _(not tested)_
+* Chromium _(not tested)_
+* SeaMonkey _(not tested)_
+* Konquerer _(not tested)_
+* Kindle _(not tested)_
+* Blackberry _(not tested)_
+* Dolfin _(not tested)_
+* _and more from browscap.ini_
+
 
 ### HTML5 Capabilities
 HTML5 Capabilities are determined via [Modernizr](http://modernizr.com/).

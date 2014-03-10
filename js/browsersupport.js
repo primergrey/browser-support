@@ -97,22 +97,11 @@ var app = {
 
     app.browser = function() {
         var oBrowser = window.BS_browscap,
-            oResponse = this.buildBasic('Browser', 'bs_browser', 'Unknown Browser ', 'desktop');
+            oResponse = this.buildBasic('Browser', 'bs_browser', oBrowser.browser || 'Unkown Browser', 'desktop');
 
-        // Chrome
-        if(oBrowser.browser == 'Chrome') {
-            oResponse.readable = 'Google Chrome';
-        }
-
-        // Safari
-        if(oBrowser.browser == 'Safari') {
-            oResponse.readable = 'Safari';
-        }
-
-        // Firefox
-        if(oBrowser.browser == 'Firefox') {
-            oResponse.readable = 'Firefox';
-        }
+        // IE Rewrite
+        if(oBrowser.browser == 'IE') oResponse.readable = 'Internet Explorer';
+        if(oBrowser.browser == 'IEMobile') oResponse.readable = 'IE Mobile';
 
         if(oBrowser.browser_version)
             oResponse.readable += ' ' + oBrowser.browser_version;
