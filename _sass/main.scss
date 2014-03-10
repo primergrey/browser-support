@@ -1,8 +1,7 @@
 @charset 'UTF-8';
 @import '_reset',
         'font-awesome/font-awesome',
-        'bourbon/bourbon';
-
+        '_porter';
 
 // ******************************************
 // Typography
@@ -11,7 +10,7 @@
     $std:'Open Sans', Helvetica, Arial, sans-serif;
 
 // ******************************************
-// Colorsolors
+// Colors
 // ******************************************
 
     $lightBackground:#f3f3f3;
