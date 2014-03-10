@@ -92,23 +92,41 @@ var app = {
     }
 
 // **********************************************
-// Operating System
+// Browser
 // **********************************************
 
     app.browser = function() {
+        var oBrowser = window.BS_browscap,
+            oResponse = this.buildBasic('Browser', 'bs_browser', 'Unknown Browser ', 'desktop');
 
+        // Chrome
+        if(oBrowser.browser == 'Chrome') {
+            oResponse.readable = 'Google Chrome';
+            oResponse.icon = 'desktop';
+        }
+
+        if(oBrowser.browser_version)
+            oResponse.readable += ' ' + oBrowser.browser_version;
+
+        // // iOS
+        // } else if(oBrowser.os == 'iOS') {
+        //     oResponse.readable = 'iOS ';
+        //     oResponse.icon = 'apple';
+
+        // // Windows + Windows Mobile
+        // }
+
+        return oResponse;
     }
 
 // **********************************************
 // Screen Resolution
 // **********************************************
 
-    // ***
-    // TODO:
-    // Determine Retina?
-    // ***
-
     app.screenResolution = function() {
+
+        var oResponse = this.buildBasic('Screen Resolution', 'bs_screen_resolution', '', 'picture-o');
+        oResponse.readable = screen.width + ' x ' + screen.height;
 
         function isHighDensity() {
             return ((window.matchMedia && (window.matchMedia('only screen and (min-resolution: 124dpi), only screen and (min-resolution: 1.3dppx), only screen and (min-resolution: 48.8dpcm)').matches || window.matchMedia('only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen and (-o-min-device-pixel-ratio: 2.6/2), only screen and (min--moz-device-pixel-ratio: 1.3), only screen and (min-device-pixel-ratio: 1.3)').matches)) || (window.devicePixelRatio && window.devicePixelRatio > 1.3));
@@ -117,9 +135,6 @@ var app = {
         function isRetina() {
             return ((window.matchMedia && (window.matchMedia('only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx), only screen and (min-resolution: 75.6dpcm)').matches || window.matchMedia('only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min--moz-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)').matches)) || (window.devicePixelRatio && window.devicePixelRatio > 2)) && /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
         }
-
-        var oResponse = this.buildBasic('Screen Resolution', 'bs_screen_resolution', '', 'desktop');
-        oResponse.readable = screen.width + ' x ' + screen.height;
 
         if(isHighDensity() && !isRetina())
             oResponse.readable += ' (high density)';
@@ -266,7 +281,7 @@ var app = {
         .controller('DetailsItems', function($scope) {
             var aItems = [
                 app.operatingSystem(),
-                app.buildBasic('Browser', 'bs_browser', 'Chrome', 'cloud'),
+                app.browser(),
                 app.screenResolution(),
                 app.buildBasic('Browser Size', 'bs_browser_size', $(window).width() + ' x ' + $(window).height(), 'expand'),
                 app.buildBasic('Color Depth', 'bs_color_depth', screen.colorDepth + ' bit', 'th'),
