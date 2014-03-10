@@ -10,13 +10,13 @@ Operating systems are determined using a combination of `navigator.platform` and
 
 * Mac OS X
 * Windows 
-* _iOS (not implemented)_
-* _Windows Mobile (not implemented)_
-* _Android (not implemented)_
-* _Firefox OS (not implemented)_
-* _Linux (not implemented)_
-* _Blackberry (not implemented)_
-* _WebOS (not implemented)_
+* iOS
+* Windows Mobile _(not tested)_
+* Android _(not tested)_
+* Firefox OS _(not tested)_
+* Linux _(not tested)_
+* Blackberry _(not tested)_
+* WebOS _(not tested)_
 
 
 ### Supported Browsers
