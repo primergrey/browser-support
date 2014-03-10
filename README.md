@@ -6,7 +6,7 @@ A small little tool to gather user system and browser details for efficient conf
 ## Capabilities
 
 ### Supported Operating Systems
-Operating systems are determined using a combination of `navigator.platform` and `navigator.userAgent`
+Currently, operating systems are determined using PHP's `get_browser()` output. Ideally this is transitioned over to a solution that is entirely Javascript. 
 
 * Mac OS X
 * Windows 
@@ -67,25 +67,31 @@ CSS3 Capabilities are determined via [Modernizr](http://modernizr.com/).
 * Cookies
 
 ### General Statistics
-* Screen Resolution
+* Screen Resolution (+ hd or retina)
 * Browser Window Size
 * Color Depth
 * IP Address
 * Flash Version
 
 ## Todos
+* Implement Browser Detection.
 * Automate browscap.ini updating. 
 * Alerts for out-of-date items.
 * Expand HTML5/CSS3 items to show specifics on tested capabilities.
-* Detect Retina. Does something already do this?
-* Track Current browscap.ini version.
 * More specific responses for Linux distros.
+* Make browser size update in real time. 
+* Pure javascript alternative to php-browscap
 
 ### Icons Needed
 * Chrome OS
 * Firefox OS
 * Blackerry / RIM OS
 * Flash (currently using YouTube play button)
+
+## Notes
+
+**Browscap.ini Version:** 5024
+
 
 
 

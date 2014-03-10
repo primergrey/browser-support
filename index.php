@@ -47,10 +47,8 @@
             <!--[if !IE]>--><object type="application/x-shockwave-flash" data="/images/test.swf" width="1" height="1"><!--<![endif]-->
             <!--[if !IE]>--></object><!--<![endif]-->
         </object>
-        <?php
-        $aBrowser = get_browser(null, true);
-        ?>
         <script type="text/javascript">
+            <?php $aBrowser = get_browser(null, true) ?>
             window.BS_ip_address = '<?= $_SERVER["REMOTE_ADDR"] ?>';
             window.BS_browscap = {
                 os: '<?= $aBrowser["platform"] ?>',
@@ -59,7 +57,6 @@
                 browser_version: '<?= $aBrowser["version"] ?>',
                 device_name: '<?= ($aBrowser["device_name"] && $aBrowser["device_name"] !== "unknown") ? $aBrowser["device_name"] : false ?>'
             };
-
         </script>
     </body>
 </html>
