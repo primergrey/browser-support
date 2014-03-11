@@ -357,8 +357,6 @@ var app = {
 
     BrowserSupport.controller('viewItem', function($scope, $location, $routeParams) {
 
-        console.log($scope);
-
         var aItems = [
             app.operatingSystem(),
             app.browser(),
@@ -396,7 +394,7 @@ var app = {
             });
 
             oMail.done(function(oResponse) {
-                console.log('oMail Complete: ', oResponse);
+                return;
             });
 
             oMail.fail(function() {
