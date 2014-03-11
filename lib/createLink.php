@@ -1,5 +1,4 @@
 <?php
-
 require_once 'helpers.php';
 
 if($_REQUEST['from_email']) {
@@ -11,11 +10,7 @@ if($_REQUEST['from_email']) {
         'from_name' => $_REQUEST['from_name'] ? $_REQUEST['from_name'] : 'PG Support'
     );
 
-    if($_REQUEST['from_name'])
-        $aDocument['from_name'] = $_REQUEST['from_name'];
-
     $collection->insert($aDocument);
-
 
     $aResponse = $aDocument;
     $aResponse['_id'] = $aResponse['_id']->__toString();
