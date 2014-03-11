@@ -1,5 +1,61 @@
 <!DOCTYPE html>
 <html>
     <head></head>
-    <body>test</body>
+    <body bgcolor="#E9E9E9">
+        <center>
+            <table width="600" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:50px;">
+                <tr>
+                    <td width="600">
+                        <h2 style="color:#287997;font-weight:300;font-size:46px;font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                            Support Details.
+                        </h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="600">
+                        <table width="560" cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                                <td width="50%" align="left" valign="top">
+                                    <p style="color:#444;font-weight:300;font-size:16px;font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                                        <span style="text-transform:uppercase;font-weight:600">Client:</span><br>
+                                        {{# from_name}}
+                                            {{from_name}}
+                                        {{/ from_name}}
+                                        {{^ from_name}}
+                                            {{from_email}}
+                                        {{/ from_name}}
+                                    </p>
+                                </td>
+                                <td width="50%" align="left" valign="top">
+                                    <p style="color:#444;font-weight:300;font-size:16px;font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                                        <span style="text-transform:uppercase;font-weight:600">Support ID:</span><br>
+                                        {{link_id}}
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p style="color:#444;font-weight:300;font-size:16px;font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                            <span style="text-transform:uppercase;font-weight:600">User Agent:</span><br>
+                            {{user_agent}}
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                        <table width="600" cellspacing="10" cellpadding="15" border="0">
+                            {{# items }}
+                            <tr>
+                                <td bgcolor="#F3F3F3" width="50%" style="color:#444;font-weight:300;font-size:14px;font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                                    <span style="text-transform:uppercase;font-weight:600">{{ label }}</span>
+                                    <span style="color:#287997;">{{ readable }}</span>
+                                </td>
+                            </tr>
+                            {{/ items }}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </body>
 </html>

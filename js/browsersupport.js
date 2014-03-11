@@ -357,7 +357,7 @@ var app = {
 
     BrowserSupport.controller('viewItem', function($scope, $location, $routeParams) {
 
-        console.log($location);
+        console.log($scope);
 
         var aItems = [
             app.operatingSystem(),
@@ -383,7 +383,7 @@ var app = {
             $scope.page_title = 'Thank You.';
             $scope.page_content = 'Your browser details have been delivered to Primer Grey to assist in troubleshooting.';
             $scope.link_id = $routeParams['linkId'];
-            $scope.user_agent = '';
+            $scope.user_agent = navigator.userAgent;
 
             var oMail = $.ajax({
                 type: 'POST',
