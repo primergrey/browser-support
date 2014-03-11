@@ -261,39 +261,174 @@ var app = {
     }
 
 // **********************************************
+// Generate Link
+// **********************************************
+
+    app.generateLink = function($location) {
+
+        function getAdditionalEmails() {
+            var aResponse = [];
+            $('input.bs_to_additional').each(function() {
+                if($(this).val() && $(this).val() != '')
+                    aResponse.push($(this).val());
+            });
+        }
+
+        var oScope = {},
+            oRequest = $.ajax({
+            type: 'POST',
+            url: '../lib/createLink.php',
+            async: false,
+            data: {
+                from_name: $('#bs_from_name').val() || '',
+                from_email: $('#bs_from_email').val() || '',
+                to_emails: getAdditionalEmails()
+            }
+        });
+
+        oRequest.done(function(oResponse) {
+            console.log('GENERATE LINK : oResponse = ', oResponse);
+            oScope = {
+                path: '/link/' + oResponse._id,
+                scope: oResponse
+            }
+        });
+
+        oRequest.fail(function(a,b) {
+            console.error('GENERATE LINK : FAILURE : a, b = ', a, b);
+        });
+
+        return oScope;
+    }
+
+// **********************************************
+// Zclip Bind
+// **********************************************
+
+    app.bindZclip = function() {
+
+        var zClip = new ZeroClipboard($('#copyLink'), {
+            moviePath: '../images/zclip.swf',
+            trustedDomains: ["*"],
+            allowScriptAccess: 'always'
+        });
+
+        zClip.on('load', function(zClip) {
+            zClip.on('complete', function(zClip) {
+                $('.copied').css({opacity:1});
+            });
+        });
+    }
+
+// **********************************************
 // Angular : browserDetails
 // **********************************************
 
     swfobject.registerObject('flash_test', '6'); // used for flash version testing
     var oFlashVersion = swfobject.getFlashPlayerVersion();
 
-    angular.module('browserDetails', [])
-        .controller('DetailsItems', function($scope) {
-            var aItems = [
-                app.operatingSystem(),
-                app.browser(),
-                app.screenResolution(),
-                app.buildBasic('Browser Size', 'bs_browser_size', $(window).width() + ' x ' + $(window).height(), 'expand'),
-                app.buildBasic('Color Depth', 'bs_color_depth', screen.colorDepth + ' bit', 'th'),
-                app.buildBasic('Javascript Enabled', 'bs_javascript', 'Yes', 'coffee'),
-                app.buildBasic('IP Address', 'bs_ip_address', window.BS_ip_address, 'location-arrow'),
-                app.cookies(),
-                app.buildBasic('Flash Version', 'bs_flash_version', oFlashVersion.major + '.' + oFlashVersion.minor, 'youtube-play'),
-                app.geolocation(),
-                app.htmlCapabilities(),
-                app.cssCapabilities()
-            ];
-            $scope.items = aItems;
+    var BrowserSupport = angular.module('browserDetails', ['ngRoute']);
 
-        })
-        .directive('itemDetails', function() {
-            return {
-                restrict: 'E',
-                templateUrl: '../templates/list-item.tpl'
-            }
+    BrowserSupport.config(function($routeProvider) {
+
+        $routeProvider.
+
+            // Create Route
+            when('/create', {
+                templateUrl: '../templates/create.tpl',
+                controller: 'createItem'
+            }).
+
+            when('/link/:linkId', {
+                templateUrl: '../templates/link.tpl',
+                controller: 'displayLink'
+            }).
+
+            when('/:linkId', {
+                templateUrl: '../templates/view.tpl',
+                controller: 'viewItem'
+            }).
+
+            when('/', {
+                templateUrl: '../templates/view.tpl',
+                controller: 'viewItem'
+            });
+    });
+
+    BrowserSupport.controller('viewItem', function($scope, $location, $routeParams) {
+
+        console.log($location);
+
+        var aItems = [
+            app.operatingSystem(),
+            app.browser(),
+            app.screenResolution(),
+            app.buildBasic('Browser Size', 'bs_browser_size', $(window).width() + ' x ' + $(window).height(), 'expand'),
+            app.buildBasic('Color Depth', 'bs_color_depth', screen.colorDepth + ' bit', 'th'),
+            app.buildBasic('Javascript Enabled', 'bs_javascript', 'Yes', 'coffee'),
+            app.buildBasic('IP Address', 'bs_ip_address', window.BS_ip_address, 'location-arrow'),
+            app.cookies(),
+            app.buildBasic('Flash Version', 'bs_flash_version', oFlashVersion.major + '.' + oFlashVersion.minor, 'youtube-play'),
+            app.geolocation(),
+            app.htmlCapabilities(),
+            app.cssCapabilities()
+        ];
+
+        $scope.items = aItems;
+
+        if($location.path() == '/') {
+            $scope.page_title = 'Your Browser.';
+            $scope.page_content = 'Your browser details have been loaded below.';
+        } else {
+            $scope.page_title = 'Thank You.';
+            $scope.page_content = 'Your browser details have been delivered to Primer Grey to assist in troubleshooting.';
+            $scope.link_id = $routeParams['linkId'];
+            $scope.user_agent = '';
+
+            var oMail = $.ajax({
+                type: 'POST',
+                url: '../lib/sendReport.php',
+                data: {
+                    link_id: $scope.link_id,
+                    user_agent: $scope.user_agent,
+                    items: aItems
+                }
+            });
+
+            oMail.done(function(oResponse) {
+                console.log('oMail Complete: ', oResponse);
+            });
+
+            oMail.fail(function() {
+                console.error('send report failed.');
+            });
+            // Send report email.
+        }
+
+    });
+
+    BrowserSupport.controller('createItem', function($scope, $location) {
+        $scope = $scope;
+        $('form').submit(function() {
+            var oArgs = app.generateLink($location);
+            $scope.$apply(function() {
+                this.bs_details = oArgs.scope;
+                $location.path(oArgs.path);
+            });
+            return false;
+
         });
+    });
 
-// TODO:
-// Add dynamic browser size functionality.
-// Flash Version if no flash
-// Actual Flash Icon
+    BrowserSupport.controller('displayLink', function($scope, $routeParams) {
+        $scope = $scope;
+        $scope.link_id = $routeParams['linkId'];
+        app.bindZclip();
+    });
+
+    BrowserSupport.directive('itemDetails', function() {
+        return {
+            restrict: 'E',
+            templateUrl: '../templates/list-item.tpl'
+        }
+    });
