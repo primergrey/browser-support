@@ -31,6 +31,6 @@
 // Mongo Connection
 // **********************************************
 
-    $mongo = new MongoClient();
+    $mongo = new MongoClient('mongodb://localhost');
     $db = $mongo->selectDB('browsersupport');
     $collection = $db->links;
